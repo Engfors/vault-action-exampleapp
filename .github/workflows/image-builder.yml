@@ -14,5 +14,8 @@ jobs:
           token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
             secret/data/ci app_secret
+      - name: Set Actions Allow Unsecure Commands
+        run: |
+          echo "ACTIONS_ALLOW_UNSECURE_COMMANDS=true" >> $GITHUB_ENV
       - name: Build Docker Image
         run: docker build . --file Dockerfile --build-arg app_secret="${{ env.APP_SECRET }}" -t vault-action-exampleapp
